@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Redirect } from 'react-router-dom';
 
-import { DashboardPage, LoginPage } from 'pages';
+import { LoginPage, OperationsPage2 } from 'pages';
 import { onlyAnon, onlyFor } from 'features/user';
 
 export const ROUTES = {
@@ -10,13 +10,21 @@ export const ROUTES = {
     component: LoginPage,
     guards: [onlyAnon()],
   },
-  dashboard: {
-    path: '/',
-    component: DashboardPage,
+  operations: {
+    title: 'Операции',
+    path: '/operations',
+    component: OperationsPage2,
     guards: [onlyFor(['CLIENT', 'ADMIN'])],
   },
   notFound: {
-    component: () => <Redirect to="/" />,
+    component: () => <Redirect to="/operations" />,
     path: '*',
   },
 };
+
+export const NAV_DATA = [
+  {
+    path: ROUTES.operations.path,
+    title: ROUTES.operations.title,
+  },
+];

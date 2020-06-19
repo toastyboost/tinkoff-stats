@@ -27,11 +27,11 @@ export const GenericStyles = createGlobalStyle`
     --link-active: #03a9f4;
     --link-hover: #2196f3;
     --border-color: rgba(0, 0, 0, 0.05);
-    --body-bg: #fff;
+    --body-bg: #f5f5f6;
     --block-bg: #fff;
-    --red: #ff4748;
-    --green: #2e9e22;
-    --blue: #157efb;
+    --red: #f5222d;
+    --green: #52c41a;
+    --blue: #1890ff;
     --box-shadow: 0 2px 6px 4px rgba(0, 0, 0, 0.03);
   }
 
@@ -39,7 +39,7 @@ export const GenericStyles = createGlobalStyle`
   html {
     font-family: var(--main-font);
     color: var(--text-color);
-    background-color: var(--bg-color);
+    background-color: var(--body-bg);
     font-size: 62.5%;
     line-height: 1.4;
     font-weight: 400;

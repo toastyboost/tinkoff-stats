@@ -8,11 +8,11 @@ import { errorCodes } from 'lib/constants';
 export const userDomain = createDomain();
 
 const defaultUser = {
-  role: null,
-};
+  role: 'CLIENT',
+} as const;
 
 export const $user = createStore<API.UserSession>(defaultUser);
-export const $isUserPending = createStore<boolean>(true);
+export const $isUserPending = createStore<boolean>(false);
 
 type GetUserResult = { payload: API.UserSession };
 
@@ -30,7 +30,6 @@ $user
   .on(logOut.done, () => defaultUser);
 
 $isUserPending.on(getUser.finally, () => false);
-$isUserPending.map((item) => console.log('!!!', item));
 
 userDomain.onCreateEffect((effect) => {
   $user.on(effect.fail, (user, payload) => {

@@ -7,21 +7,22 @@ import { absoluteCenterPosition } from 'lib/constants';
 type GenericTemplateProps = {
   isAuthed: boolean;
   isPending: boolean;
-}
+};
 
 export const GenericTemplate: React.FC<GenericTemplateProps> = ({
   children,
   isAuthed,
-  isPending
+  isPending,
 }) => {
-
   if (isPending && !isAuthed) {
-    return <Spin size="large" spinning={isPending} style={absoluteCenterPosition} />
+    return (
+      <Spin size="large" spinning={isPending} style={absoluteCenterPosition} />
+    );
   }
 
-  return <Spin size="large" spinning={isPending}>
-    {
-      isAuthed ? (
+  return (
+    <Spin size="large" spinning={isPending}>
+      {isAuthed ? (
         <Layout>
           <Header />
           <Layout>
@@ -30,8 +31,8 @@ export const GenericTemplate: React.FC<GenericTemplateProps> = ({
           <Footer />
         </Layout>
       ) : (
-          <Layout>{children}</Layout>
-        )
-    }
-  </Spin>
+        <Layout>{children}</Layout>
+      )}
+    </Spin>
+  );
 };

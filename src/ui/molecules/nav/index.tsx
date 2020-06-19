@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import { useLocation } from 'react-router-dom';
 import { NavContainer, NavLink, NavMenu, NavItem } from './styles';
 
 type MenuItem = {
@@ -12,11 +12,19 @@ type MenuData = {
 };
 
 export const Nav: React.FC<MenuData> = ({ data }) => {
+  const location = useLocation();
+  const path = location.pathname.split('/').splice(0, 2).join('/');
+
   return (
     <NavContainer>
-      <NavMenu theme="dark" mode="horizontal" style={{ lineHeight: '64px' }}>
-        {data.map(({ path, title }, key) => (
-          <NavItem key={key}>
+      <NavMenu
+        theme="dark"
+        mode="horizontal"
+        style={{ lineHeight: '64px' }}
+        selectedKeys={[path]}
+      >
+        {data.map(({ path, title }) => (
+          <NavItem key={path}>
             <NavLink to={path}>{title}</NavLink>
           </NavItem>
         ))}

@@ -1,7 +1,9 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { FooterContainer } from './styles'
+import { FooterContainer } from './styles';
 
-const todayYear = new Date().getFullYear()
+const todayYear = new Date().getFullYear();
 
-export const Footer: React.FC = () => <FooterContainer>WEB © 2012 – {todayYear}</FooterContainer>
+export const Footer: React.FC = () => (
+  <FooterContainer>TIA © {todayYear}</FooterContainer>
+);
