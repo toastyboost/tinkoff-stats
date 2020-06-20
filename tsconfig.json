@@ -17,8 +17,8 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es6",
-    "typeRoots": ["./node_modules/@types"],
-    "types": ["styled-components", "react", "react-dom", "react-router-dom"]
+    "typeRoots": ["./node_modules/@types"]
+    // "types": ["styled-components", "react", "react-dom", "react-router-dom"]
   },
   "exclude": ["./node_modules", "./public", "./build"],
   "include": ["src"]
