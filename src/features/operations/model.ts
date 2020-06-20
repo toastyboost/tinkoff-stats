@@ -1,8 +1,10 @@
-import { createStore, createDomain, forward } from 'effector';
+import { createStore } from 'effector';
 
 import * as API from 'api/operations';
 
-export const operationsDomain = createDomain();
+import { sessionDomain } from 'features/user';
+
+export const operationsDomain = sessionDomain.createDomain();
 
 export const $operations = createStore<API.Operation[]>([]);
 

@@ -1,52 +1,82 @@
-import { createStore, createDomain } from 'effector';
+import { createEvent, createStore, createDomain, forward } from 'effector';
 import { message } from 'antd';
 
 import * as API from 'api/user';
 
 import { errorCodes } from 'lib/constants';
 
-export const userDomain = createDomain();
+export const sessionDomain = createDomain();
 
-const defaultUser = {
-  role: 'CLIENT',
-} as const;
+export type UserSession = {
+  role: API.Roles | null;
+};
 
-export const $user = createStore<API.UserSession>(defaultUser);
-export const $isUserPending = createStore<boolean>(false);
+const tokenInitial = {
+  token: null,
+  keep: false,
+};
 
-type GetUserResult = { payload: API.UserSession };
+const userInitial = {
+  role: null,
+};
 
-export const getUser = userDomain.createEffect<void, GetUserResult>();
-export const logIn = userDomain.createEffect<API.Credentials, void>();
-export const logOut = userDomain.createEffect<void, void>();
+export const $token = createStore<API.UserToken>(tokenInitial);
+export const $accounts = createStore<API.Account[]>([]);
+export const $user = createStore<UserSession>(userInitial);
 
-getUser.use(API.getUser);
-logOut.use(API.logOut);
-logIn.use(API.logIn);
+export const setToken = createEvent<API.UserToken>();
+export const deleteToken = createEvent();
 
-$user
-  .on(getUser.done, (state, { result }) => ({ ...state, ...result.payload }))
-  .on(getUser.fail, () => defaultUser)
-  .on(logOut.done, () => defaultUser);
+export const getAccounts = sessionDomain.createEffect<
+  void,
+  API.UserAccountsPayload
+>();
 
-$isUserPending.on(getUser.finally, () => false);
+getAccounts.use(API.getUser);
 
-userDomain.onCreateEffect((effect) => {
+export const $isAccountsPending = getAccounts.pending;
+
+$token
+  .on(setToken, (_, payload) => payload)
+  .on(deleteToken, () => tokenInitial);
+
+$accounts.on(getAccounts.done, (_, { result }) => result.payload.accounts);
+
+$user.on(getAccounts.done, (_, { result }) => {
+  if (result.payload.accounts.length > 0) {
+    return { role: 'USER' };
+  }
+});
+
+sessionDomain.onCreateEffect((effect) => {
   $user.on(effect.fail, (user, payload) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const err = payload.error as any;
 
-    if (err.status === errorCodes.NOT_AUTHED) {
-      return { role: null };
+    if (err.code === errorCodes.NOT_AUTHED) {
+      return userInitial;
     }
     return user;
   });
 
-  effect.done.watch(() => {
-    message.warning('Authorization success');
-  });
-
   effect.fail.watch(() => {
-    message.warning('Authorization fail');
+    message.warning('Ошибка авторизации, проверьте токен');
   });
+});
+
+forward({
+  from: deleteToken,
+  to: getAccounts,
+});
+
+setToken.watch(({ token, keep }) => {
+  if (token) {
+    localStorage.setItem('token', token);
+  }
+  if (keep) {
+    localStorage.setItem('keep', 'keep');
+  }
+});
+
+deleteToken.watch(() => {
+  localStorage.clear();
 });

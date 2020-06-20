@@ -1,5 +1,13 @@
-export { $user, $isUserPending, getUser, logIn, logOut } from './model';
+export {
+  //
+  sessionDomain,
+  $user,
+  $isAccountsPending,
+  getAccounts,
+  setToken,
+  deleteToken,
+} from './model';
 
-export { onlyAnon, onlyUsers, onlyFor } from './guards';
+export { onlyAnon, onlyUsers } from './guards';
 
 export { useAuth } from './hooks';

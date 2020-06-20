@@ -1,6 +1,1 @@
-export {
-  $portfolio,
-  getPortfolio,
-  $portfolioProfit,
-  getPortfolioProfitByTickers,
-} from './model';
+export { $portfolio, getPortfolio } from './model';

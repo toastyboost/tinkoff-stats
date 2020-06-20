@@ -1,21 +1,33 @@
 import { request } from 'lib/request';
 
-export type Roles = 'USER' | 'CLIENT' | 'ADMIN';
+export type Roles = 'USER';
 
-export type UserSession = {
-  role: Roles | null;
+export type UserToken = {
+  token: string | null;
+  keep: boolean;
 };
+
+export type Account = {
+  brokerAccountType: string;
+  brokerAccountId: string;
+};
+
+export type UserAccountsPayload = {
+  payload: {
+    accounts: Account[];
+  };
+};
+
+export const getUser = (): Promise<UserAccountsPayload> =>
+  request({
+    method: 'get',
+    url: '/user/accounts',
+  });
 
 export type Credentials = {
   login: string;
   password: string;
 };
-
-export const getUser = (): Promise<{ payload: UserSession }> =>
-  request({
-    method: 'get',
-    url: '/user/get-user',
-  });
 
 export const logOut = (): Promise<void> =>
   request({

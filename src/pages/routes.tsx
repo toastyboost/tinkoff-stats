@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Redirect } from 'react-router-dom';
 
-import { LoginPage, OperationsPage2 } from 'pages';
-import { onlyAnon, onlyFor } from 'features/user';
+import { LoginPage, OperationsPage } from 'pages';
+import { onlyAnon, onlyUsers } from 'features/user';
 
 export const ROUTES = {
   login: {
@@ -13,11 +13,17 @@ export const ROUTES = {
   operations: {
     title: 'Операции',
     path: '/operations',
-    component: OperationsPage2,
-    guards: [onlyFor(['CLIENT', 'ADMIN'])],
+    component: OperationsPage,
+    guards: [onlyUsers()],
   },
-  notFound: {
+  notFoundForAnon: {
+    component: () => <Redirect to="/" />,
+    guards: [onlyAnon()],
+    path: '*',
+  },
+  notFoundForUsers: {
     component: () => <Redirect to="/operations" />,
+    guards: [onlyUsers()],
     path: '*',
   },
 };

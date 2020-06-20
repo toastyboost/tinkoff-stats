@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { BankOutlined } from '@ant-design/icons';
-import { logOut } from 'features/user';
+import { deleteToken } from 'features/user';
 
 import { Nav } from 'ui/molecules';
 import { Logo } from 'ui/atoms';
@@ -13,7 +13,7 @@ export const Header = () => {
     <HeaderContainer>
       <Logo to="/" icon={<BankOutlined />} />
       <Nav data={NAV_DATA} />
-      <LogoutButton type="primary" onClick={() => logOut()}>
+      <LogoutButton type="primary" onClick={() => deleteToken()}>
         Выйти
       </LogoutButton>
     </HeaderContainer>

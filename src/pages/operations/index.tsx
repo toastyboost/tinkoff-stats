@@ -44,7 +44,7 @@ const handlePickerDateChange = (_: any, dateStrings: string[]) => {
   });
 };
 
-export const OperationsPage2: React.FC = () => {
+export const OperationsPage: React.FC = () => {
   const [currentRange, setRange] = React.useState('weekAgo');
 
   const operationsTable = useStore($operationsTable);

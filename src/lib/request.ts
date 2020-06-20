@@ -1,7 +1,3 @@
-const ACCESS_TOKEN =
-  process.env.SANDBOX_TOKEN ||
-  't.5kYJtyirZ6SWFmWg45CHCKWXS-rVcx2nH2fgbTuQJREuVrQXpxlmCE1J2_pOUNJJ3pf_aI9gq1bu5n5f4lq60Q';
-
 type ResponseMeta = {
   code: number;
   url: string;
@@ -30,6 +26,7 @@ export type RequestProps = {
   method?: string;
   url: string;
   body?: object;
+
   file?: FormData;
 };
 
@@ -46,12 +43,13 @@ export const request = async ({
   body,
   file,
 }: RequestProps): Promise<any> => {
+  const token = localStorage.getItem('token');
   const fetchUrl = url;
 
   const headers = {
     ...(!file && { 'Content-Type': 'application/json' }),
     Accept: 'application/json',
-    Authorization: `Bearer t.UKBHwCk4vy1a-iJLnJDZ8wvaK4E82065f1XQtCVDBnGoSER9enMrBBW2votO8WPAiwKJ4U9rkm8REezSxcA4cg`,
+    Authorization: `Bearer ${token}`,
   };
 
   const fetchOptions = {

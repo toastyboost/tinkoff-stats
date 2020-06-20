@@ -1,11 +1,4 @@
-import {
-  createStore,
-  createEvent,
-  forward,
-  combine,
-  guard,
-  sample,
-} from 'effector';
+import { createStore, createEvent, forward, combine } from 'effector';
 
 import * as API from 'api/operations';
 import { getOperations } from 'features/operations';

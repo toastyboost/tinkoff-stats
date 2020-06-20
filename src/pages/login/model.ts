@@ -1,27 +1,25 @@
 import { createEvent, sample, guard, forward } from 'effector';
-import { createInput, createForm } from 'effector-form';
+import { createField, createInput, createForm } from 'effector-form';
 
-import { Credentials } from 'api/user';
-import { logIn } from 'features/user';
-
-import { loginValidator, passValidator } from 'lib/validators';
+import { setToken, getAccounts } from 'features/user';
+import { passValidator } from 'lib/validators';
 
 export const submitForm = createEvent<void>();
 export const resetForm = createEvent<void>();
 
-export const loginStore = createInput({
-  name: 'email',
-  validator: loginValidator,
-});
-
-export const passStore = createInput({
-  name: 'password',
+export const tokenStore = createInput({
+  name: 'token',
   validator: passValidator,
 });
 
-export const loginForm = createForm<Credentials>({
+export const keepStore = createField<boolean>({
+  name: 'keep',
+  initialValue: false,
+});
+
+export const loginForm = createForm({
   name: 'loginForm',
-  fields: [loginStore, passStore],
+  fields: [tokenStore, keepStore],
   submit: submitForm,
   reset: resetForm,
 });
@@ -29,10 +27,15 @@ export const loginForm = createForm<Credentials>({
 guard({
   source: sample(loginForm.$values, submitForm),
   filter: loginForm.$isValid,
-  target: logIn,
+  target: setToken,
 });
 
 forward({
-  from: logIn.done,
+  from: setToken,
   to: resetForm,
+});
+
+forward({
+  from: setToken,
+  to: getAccounts,
 });

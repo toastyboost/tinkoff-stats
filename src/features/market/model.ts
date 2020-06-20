@@ -1,8 +1,10 @@
-import { createStore, createDomain, forward } from 'effector';
+import { createStore, forward } from 'effector';
 
 import * as API from 'api/market';
 
-export const marketDomain = createDomain();
+import { sessionDomain } from 'features/user';
+
+export const marketDomain = sessionDomain.createDomain();
 
 export const $stocks = createStore<API.Stock[]>([]);
 export const $currencies = createStore<API.Currency[]>([]);

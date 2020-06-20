@@ -4,6 +4,7 @@ import { Form, Input as AntInput } from 'antd';
 import { InputResult } from 'effector-form';
 
 type DefaultFieldProps = {
+  className?: string;
   store: InputResult;
   config: {
     label?: string;
@@ -17,19 +18,32 @@ type DefaultFieldProps = {
   };
 };
 
-export const Input = ({ store, config }: DefaultFieldProps) => {
-  const { label, required, name, placeholder, prefix, suffix, size, type } = config;
+export const Input: React.FC<DefaultFieldProps> = ({
+  className,
+  store,
+  config,
+}) => {
+  const {
+    label,
+    required,
+    name,
+    placeholder,
+    prefix,
+    suffix,
+    size,
+    type,
+  } = config;
   const { $value, $error, changed } = store;
 
   const value = useStore($value);
   const error = useStore($error);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    changed(value)
-  }
+    const value = e.target.value;
+    changed(value);
+  };
 
-  const isError = false
+  const isError = false;
 
   return (
     <Form.Item
@@ -40,6 +54,7 @@ export const Input = ({ store, config }: DefaultFieldProps) => {
       className={`form-item-${name}`}
     >
       <AntInput
+        className={className}
         value={value}
         prefix={prefix}
         suffix={suffix}

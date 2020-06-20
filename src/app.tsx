@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import 'moment/locale/ru';
 
-import { $user, $isUserPending, useAuth } from 'features/user';
+import { $user, $isAccountsPending, useAuth } from 'features/user';
 import { GenericTemplate } from 'ui/templates';
 
 import { Routing } from './routing';
@@ -12,11 +12,16 @@ import { Routing } from './routing';
 moment.locale('ru');
 
 export const App = () => {
-  const isUserPending = useStore($isUserPending);
+  const isAccountsPending = useStore($isAccountsPending);
   const user = useStore($user);
 
+  useAuth();
+
   return (
-    <GenericTemplate isAuthed={Boolean(user.role)} isPending={isUserPending}>
+    <GenericTemplate
+      isAuthed={Boolean(user.role)}
+      isPending={isAccountsPending}
+    >
       <Routing />
     </GenericTemplate>
   );
