@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.js": "/tinkoff-stats/static/js/main.bfb34bb1.chunk.js",
+    "main.js.map": "/tinkoff-stats/static/js/main.bfb34bb1.chunk.js.map",
+    "runtime-main.js": "/tinkoff-stats/static/js/runtime-main.96762105.js",
+    "runtime-main.js.map": "/tinkoff-stats/static/js/runtime-main.96762105.js.map",
+    "static/css/2.4845e3ab.chunk.css": "/tinkoff-stats/static/css/2.4845e3ab.chunk.css",
+    "static/js/2.e550dbd3.chunk.js": "/tinkoff-stats/static/js/2.e550dbd3.chunk.js",
+    "static/js/2.e550dbd3.chunk.js.map": "/tinkoff-stats/static/js/2.e550dbd3.chunk.js.map",
+    "index.html": "/tinkoff-stats/index.html",
+    "precache-manifest.b8439f1c25245aa745ca588bdc77c83a.js": "/tinkoff-stats/precache-manifest.b8439f1c25245aa745ca588bdc77c83a.js",
+    "service-worker.js": "/tinkoff-stats/service-worker.js",
+    "static/css/2.4845e3ab.chunk.css.map": "/tinkoff-stats/static/css/2.4845e3ab.chunk.css.map",
+    "static/js/2.e550dbd3.chunk.js.LICENSE.txt": "/tinkoff-stats/static/js/2.e550dbd3.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.96762105.js",
+    "static/css/2.4845e3ab.chunk.css",
+    "static/js/2.e550dbd3.chunk.js",
+    "static/js/main.bfb34bb1.chunk.js"
+  ]
+}
