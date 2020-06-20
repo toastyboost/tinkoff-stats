@@ -18,7 +18,7 @@
     "strict": true,
     "target": "es6",
     "typeRoots": ["./node_modules/@types"],
-    "types": []
+    "types": ["react", "react-dom", "react-router-dom", "styled-components"]
   },
   "exclude": ["./node_modules", "./public", "./build"],
   "include": ["src"]
